@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/main.css">
+        <title>AR Bookstore</title>
+    </head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>    
+ <body>
+    <div class="buttons">
+      <button class="say-hi-button" id="button1">Button 1</button>
+      <button class="say-hi-button" id="button2">Button 2</button>
+    </div>
+    <a-scene embedded arjs>
+      <a-assets id="assets">
+        <img id="texture" src="img/test-texture.jpg">
+      </a-assets>
+      <a-marker markerhandler type="pattern" url="markers/test-marker.patt" size="0.3">
+        <a-entity position="0 0 0" scale="0.05 0.05 0.05">
+          <a-box id="book1" src="#texture" width="24" height="4" depth="32"></a-box>
+        </a-entity>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+  
+    <script src="javascript/main.js"></script>
+  </body>
+</html>
