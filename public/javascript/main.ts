@@ -1,8 +1,8 @@
 const buttons = document.querySelectorAll(".say-hi-button") as NodeListOf<HTMLButtonElement>;
 const button1 = document.getElementById('button1') as HTMLButtonElement;
 const button2 = document.getElementById('button2') as HTMLButtonElement;
-const book1 = document.getElementById('book1')!;
 const assets = document.getElementById('assets') as Element;
+const books = [ document.getElementById('book1')!, document.getElementById('book2')!, document.getElementById('book3')! ]
 
 type RakutenItem = {
     itemUrl: string;
@@ -22,8 +22,10 @@ button2.addEventListener("click", e => {
 });
 
 function updateCover(items: RakutenItem[]){
-    const url = "../image?url=" + items[0].largeImageUrl;
-    book1.setAttribute("src", url);
+    books.forEach((book, i) => {
+        const url = "../image?url=" + items[i].largeImageUrl;
+        book.setAttribute("src", url);
+    });
 }
 
 AFRAME.registerComponent('markerhandler', {
