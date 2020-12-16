@@ -15,7 +15,8 @@ body{
     z-index: 10;
   }
 
-  .say-hi-button {
+  .detail-button {
+    display: none;
     margin:4px;
     padding: 4px;
     border-radius: 4px;
