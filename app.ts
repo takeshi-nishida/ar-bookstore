@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import request from 'request';
+import fetch from 'node-fetch';
 
 const pubdir = path.join(__dirname, 'public');
 const app = express();
@@ -17,21 +17,36 @@ app.use(express.urlencoded({ extended: true }));
 const booksSearchUrl = "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?format=json&formatVersion=2&applicationId=" + appId;
 
 app.get('/api', (req, res, next) => {
-    console.log("api accessed")
-    const url = booksSearchUrl + "&sort=sales" + "&booksGenreId=000";
-    request.get(url, (err, _, body) => {
-        if(err){
-            next(err);
-        }
-        else{
-            res.send(body);
-        }
-    });
+    let genres = ["001"];
+    if(typeof req.query.genres == 'string'){
+        genres = req.query.genres.split(',');
+    }
+
+    console.log("API accessed. Genres = " +  genres.join(","));
+
+    const urls = genres.map(g => booksSearchUrl + "&sort=sales" + "&booksGenreId=" + g);
+
+    Promise.all(genres.map((g, i) => getBooks(g, i * 500)))
+    .then(results =>{
+        res.send(results);
+    }).catch(err => console.log(err));    
 });
+
+// Fetch book info from Rakuten Books API. Add waits to avoid too many requests error.
+async function getBooks(genreId: string, wait: number){
+    const url = booksSearchUrl + "&sort=sales" + "&booksGenreId=" + genreId;
+    await sleep(wait);
+    const result = await fetch(url);
+    const json = await result.json();
+    const items = json["Items"];
+    return { genreId, items };
+}
+
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 app.get('/image', (req, res) => {
     const url = req.query.url as string || "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/4956/9784088824956.gif?_ex=200x200";
-    request.get(url).pipe(res);
+    fetch(url).then(img => { img.body.pipe(res) });
 });
 
 const server = app.listen(app.get('port'), () => {
