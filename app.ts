@@ -26,7 +26,7 @@ app.get('/api', (req, res, next) => {
 
     const urls = genres.map(g => booksSearchUrl + "&sort=sales" + "&booksGenreId=" + g);
 
-    Promise.all(genres.map((g, i) => getBooks(g, i * 500)))
+    Promise.all(genres.map((g, i) => getBooks(g, i * 1000)))
     .then(results =>{
         res.send(results);
     }).catch(err => console.log(err));    
