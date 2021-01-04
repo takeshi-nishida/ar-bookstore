@@ -6,6 +6,7 @@ const pubdir = path.join(__dirname, 'public');
 const app = express();
 
 const appId = process.env.APP_ID;
+const wait = parseInt(process.env.API_WAIT || "500");
 
 app.set('port', process.env.PORT || 3000);
 
@@ -26,7 +27,7 @@ app.get('/api', (req, res, next) => {
 
     const urls = genres.map(g => booksSearchUrl + "&sort=sales" + "&booksGenreId=" + g);
 
-    Promise.all(genres.map((g, i) => getBooks(g, i * 1000)))
+    Promise.all(genres.map((g, i) => getBooks(g, i * wait)))
     .then(results =>{
         res.send(results);
     }).catch(err => console.log(err));    
