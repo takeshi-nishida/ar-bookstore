@@ -20,7 +20,8 @@
   "homepage": "https://github.com/takeshi-nishida/ar-bookstore#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "typescript": "^3.9.6"
   },
   "devDependencies": {
     "@types/aframe": "^1.0.2",
