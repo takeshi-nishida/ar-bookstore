@@ -1,10 +1,14 @@
 let genres = [
     { marker: "pattern-manga1.patt", booksGenreId: "001001" },
     { marker: "pattern-novel1.patt", booksGenreId: "001004" },
-    { marker: "pattern-business1.patt", booksGenreId: "001006" },
+//    { marker: "pattern-business1.patt", booksGenreId: "001006" },
+    { marker: "pattern-business1.patt", booksGenreId: "001006009" }, // 自己啓発に変更
     { marker: "pattern-travel1.patt", booksGenreId: "001007" },
     { marker: "pattern-cooking1.patt", booksGenreId: "001010011" },
     { marker: "pattern-fashion1.patt", booksGenreId: "001010014006" },
+    { marker: "pattern-nonfiction.patt", booksGenreId: "001008017" },
+    { marker: "pattern-language.patt", booksGenreId: "001002005" },
+    { marker: "pattern-jobhunting.patt", booksGenreId: "001006010" },
 ];
 
 const buttons = [ document.getElementById('button1')!, document.getElementById('button2')!, document.getElementById('button3')! ];
